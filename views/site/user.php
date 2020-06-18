@@ -57,7 +57,7 @@
     <header>
         <div class="sidebar-fixed position-fixed">
 
-            <a class="ml-3 mt-3">
+            <a class="ml-3 mt-3 black-text" href="/">
 
                 <h3>
                     Рабочее время
@@ -85,61 +85,65 @@
     <main class="pt-1 mx-lg-5">
         <div class="modal fade" id="AddMachine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Добавление машины</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
-                            <i class="fas fa-envelope prefix grey-text"></i>
-                            <input type="email" id="defaultForm-email" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-email">Машина</label>
+                <form method="post" action="">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Добавление машины</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <input type="text" id="defaultForm-email" class="form-control validate" name="comp">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Имя компьютера</label>
+                            </div>
 
-                        <div class="md-form mb-4">
-                            <i class="fas fa-lock prefix grey-text"></i>
-                            <input type="password" id="defaultForm-pass" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Владелец</label>
+                            <div class="md-form mb-4">
+                                <i class="fas fa-lock prefix grey-text"></i>
+                                <input type="text" id="defaultForm-pass" class="form-control validate" name="owner">
+                                <label data-error="wrong" data-success="right" for="defaultForm-pass">Владелец</label>
+                            </div>
+
                         </div>
-
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-white" type="submit" name="addMachine">Добавить</button>
+                        </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-white">Добавить</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="modal fade" id="AddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Добавление пользователя</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
-                            <i class="fas fa-envelope prefix grey-text"></i>
-                            <input type="email" id="defaultForm-email" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-email">Логин</label>
+                <form action="" method="post">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h4 class="modal-title w-100 font-weight-bold">Добавление пользователя</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
+                        <div class="modal-body mx-3">
+                            <div class="md-form mb-5">
+                                <i class="fas fa-envelope prefix grey-text"></i>
+                                <input type="text" id="defaultForm-email" class="form-control validate" name="login">
+                                <label data-error="wrong" data-success="right" for="defaultForm-email">Логин</label>
+                            </div>
 
-                        <div class="md-form mb-4">
-                            <i class="fas fa-lock prefix grey-text"></i>
-                            <input type="password" id="defaultForm-pass" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Имя
-                                пользователя</label>
+                            <div class="md-form mb-4">
+                                <i class="fas fa-lock prefix grey-text"></i>
+                                <input type="text" id="defaultForm-pass" class="form-control validate" name="user_name">
+                                <label data-error="wrong" data-success="right" for="defaultForm-pass">Имя
+                                    пользователя</label>
+                            </div>
+
                         </div>
-
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button class="btn btn-white" type="submit" name="addUser">Добавить</button>
+                        </div>
                     </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-white">Добавить</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="container-fluid mt-5">

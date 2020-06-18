@@ -206,17 +206,15 @@ class Main
 	public static function getMachine($data)
 	{
 		$comp = $data['comp'];
-		$sid = $data['sid'];
 
 		$db = Db::getConnection();
 
 		$sql = "SELECT id_computer
 				FROM computers
-				WHERE name_computer = :comp AND sid = :sid";
+				WHERE name_computer = :comp";
 
 		$result = $db->prepare($sql);
 		$result->bindParam(':comp', $comp, PDO::PARAM_STR);
-		$result->bindParam(':sid', $sid, PDO::PARAM_STR);
 		$result->execute();
 
 		$user = $result->fetch();
@@ -380,5 +378,41 @@ class Main
 			$i++;
 		}
 		return $screens;
+	}
+
+	public static function addUser($login, $userName)
+	{
+
+		$db = Db::getConnection();
+
+		$sql = "INSERT INTO users
+        (login, name_user) 
+        VALUES 
+        (:login, :userName)";
+
+		$result = $db->prepare($sql);
+		$result->bindParam(':login', $login, PDO::PARAM_STR);
+		$result->bindParam(':userName', $userName, PDO::PARAM_STR);
+		$result->execute();
+
+		return $db->lastInsertId();
+	}
+
+	public static function addComp($comp, $owner)
+	{
+
+		$db = Db::getConnection();
+
+		$sql = "INSERT INTO computers
+        (name_computer, owner) 
+        VALUES 
+        (:comp, :owner)";
+
+		$result = $db->prepare($sql);
+		$result->bindParam(':comp', $comp, PDO::PARAM_STR);
+		$result->bindParam(':owner', $owner, PDO::PARAM_STR);
+		$result->execute();
+
+		return $db->lastInsertId();
 	}
 }

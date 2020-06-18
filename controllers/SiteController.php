@@ -37,6 +37,26 @@ class SiteController
             $screens = Main::getScreensByDate($date1, $date2);
         }
 
+        if (isset($_POST['addUser'])) {
+            $login = $_POST['login'];
+            $userName = $_POST['user_name'];
+
+            $user = Main::addUser($login, $userName);
+
+            $users = array();
+            $users = Main::getUsers();
+        }
+
+        if (isset($_POST['addMachine'])) {
+            $comp = $_POST['comp'];
+            $owner = $_POST['owner'];
+
+            $machine = Main::addComp($comp, $owner);
+
+            $comps = array();
+            $comps = Main::getComps();
+        }
+
         require_once(ROOT . '/views/site/index.php');
     }
 
@@ -72,6 +92,26 @@ class SiteController
 
                 $screens = array();
                 $screens = Main::getScreensByUserAndDate($userId, $date1, $date2);
+            }
+
+            if (isset($_POST['addUser'])) {
+                $login = $_POST['login'];
+                $userName = $_POST['user_name'];
+
+                $user = Main::addUser($login, $userName);
+
+                $users = array();
+                $users = Main::getUsers();
+            }
+
+            if (isset($_POST['addMachine'])) {
+                $comp = $_POST['comp'];
+                $owner = $_POST['owner'];
+
+                $machine = Main::addComp($comp, $owner);
+
+                $comps = array();
+                $comps = Main::getComps();
             }
 
             require_once(ROOT . '/views/site/user.php');
