@@ -17,10 +17,23 @@ class SiteController
             $comps = Main::getComps();
 
             $users = array();
-            $users = Main::getUsers();
+            $users = Main::getComps();
 
             $screens = array();
             $screens = Main::getScreens();
+        }
+
+        if (isset($_COOKIE['date1']) && isset($_COOKIE['date2'])) {
+            $date1 = $_COOKIE['date1'];
+            $date2 = $_COOKIE['date2'];
+            $procces = array();
+            $procces = Main::getProccesByDate($date1, $date2);
+
+            $url = array();
+            $url = Main::getUrlsByDate($date1, $date2);
+
+            $screens = array();
+            $screens = Main::getScreensByDate($date1, $date2);
         }
 
         if (isset($_POST['filter'])) {
@@ -35,16 +48,6 @@ class SiteController
 
             $screens = array();
             $screens = Main::getScreensByDate($date1, $date2);
-        }
-
-        if (isset($_POST['addUser'])) {
-            $login = $_POST['login'];
-            $userName = $_POST['user_name'];
-
-            $user = Main::addUser($login, $userName);
-
-            $users = array();
-            $users = Main::getUsers();
         }
 
         if (isset($_POST['addMachine'])) {
@@ -75,14 +78,14 @@ class SiteController
             $comps = Main::getComps();
 
             $users = array();
-            $users = Main::getUsers();
+            $users = Main::getComps();
 
             $screens = array();
             $screens = Main::getScreensByUser($userId);
 
-            if (isset($_POST['filter'])) {
-                $date1 = $_POST['date1'];
-                $date2 = $_POST['date2'];
+            if (isset($_COOKIE['date1']) && isset($_COOKIE['date2'])) {
+                $date1 = $_COOKIE['date1'];
+                $date2 = $_COOKIE['date2'];
 
                 $procces = array();
                 $procces = Main::getProccesByUserAndDate($userId, $date1, $date2);
@@ -94,14 +97,20 @@ class SiteController
                 $screens = Main::getScreensByUserAndDate($userId, $date1, $date2);
             }
 
-            if (isset($_POST['addUser'])) {
-                $login = $_POST['login'];
-                $userName = $_POST['user_name'];
+            if (isset($_POST['filter'])) {
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                setcookie('date1', $date1);
+                setcookie('date2', $date2);
 
-                $user = Main::addUser($login, $userName);
+                $procces = array();
+                $procces = Main::getProccesByUserAndDate($userId, $date1, $date2);
 
-                $users = array();
-                $users = Main::getUsers();
+                $url = array();
+                $url = Main::getUrlsByUserAndDate($userId, $date1, $date2);
+
+                $screens = array();
+                $screens = Main::getScreensByUserAndDate($userId, $date1, $date2);
             }
 
             if (isset($_POST['addMachine'])) {
@@ -114,7 +123,7 @@ class SiteController
                 $comps = Main::getComps();
             }
 
-            require_once(ROOT . '/views/site/user.php');
+            require_once(ROOT . '/views/site/index.php');
         }
         return true;
     }
@@ -153,24 +162,13 @@ class SiteController
         return true;
     }
 
-    public function actionApiUsers()
-    {
-        header("Content-type: application/json");
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method === "POST") {
-            $id = Main::getUser($_POST);
-            echo $id;
-        }
-        return true;
-    }
-
     public function actionApiComps()
     {
         header("Content-type: application/json");
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method === "POST") {
-            $id = Main::getMachine($_POST);
-            echo $id;
+            $response = Main::getMachine($_POST);
+            echo $response;
         }
         return true;
     }
@@ -180,12 +178,18 @@ class SiteController
         header("Content-type: application/json");
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method === "POST") {
-            $token = $_POST['token'];
-            if ($token == "=ds345fsdfjds435345fbsdjf&sfj345ksdf?sdfgy2343sdghfsiu/sdfkjygsdf34jggscsdf=sdf05083gydsf%sdfjkb%dfjkgh") {
+            if (Main::checkToken($_POST)) {
                 $id = Main::postProccess($_POST);
                 echo $id;
             }
         }
-        return 0;
+        return true;
+    }
+
+    public function actionAjaxComps()
+    {
+        $df = Main::getCompsAjax();
+        echo $df;
+        return $df;
     }
 }

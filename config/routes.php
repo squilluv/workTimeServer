@@ -2,10 +2,9 @@
 
 return array(
 
-	'api/users' => 'site/apiUsers',
 	'api/comps' => 'site/apiComps',
 
-	'api/auth' => 'site/apiAuth',
+	'ajax/comps' => 'site/ajaxComps',
 
 	'api/postproc' => 'site/apiPostProccess',
 

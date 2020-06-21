@@ -5,22 +5,14 @@ class User
 
 	public static function checkUserData($login, $password)
 	{
-		$db = Db::getConnection();
-
-		$sql = "SELECT *
-				FROM users
-				WHERE login = :login AND password = :password";
-
-		$result = $db->prepare($sql);
-		$result->bindParam(':login', $login, PDO::PARAM_INT);
-		$result->bindParam(':password', $password, PDO::PARAM_STR);
-		$result->execute();
-
-		$user = $result->fetch();
-		if($user) {
-			return $user['id_user'];
+		$file = new SplFileObject(ROOT . '/components/logpass.txt');
+		$file->seek(0);
+		$logpass = explode("-", $file);
+		if ($logpass[0] == $login && $logpass[1] == $password) {
+			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	public static function auth($userId)

@@ -57,7 +57,7 @@
     <header>
         <div class="sidebar-fixed position-fixed">
 
-            <a class="ml-3 mt-3">
+            <a class="ml-3 mt-3 black-text" href="/">
 
                 <h3>
                     Рабочее время
@@ -65,10 +65,10 @@
 
             </a>
 
-            <div class="list-group list-group-flush mt-5">
+            <div class="list-group list-group-flush mt-5" id="lgu">
                 <?php foreach ($users as $user) : ?>
-                    <a class="list-group-item list-group-item-action waves-effect" href="/user/<?php echo $user['id_user'] ?>">
-                        <?php echo $user['name_user'] ?> <button class="cg"></button>
+                    <a class="list-group-item list-group-item-action waves-effect" href="/user/<?php echo $user['id_computer'] ?>">
+                        <?php echo $user['owner'] ?> <?php if (['online'] == 1) : ?><buttaon class="cg"></button><?php else : ?><button class="cw"></button><?php endif; ?>
                     </a>
                 <?php endforeach; ?>
             </div>
@@ -76,7 +76,6 @@
             <div class="fixed-bottom mb-5 ml-2">
                 <button class="btn btn-white" data-toggle="modal" data-target="#AddMachine">Добавить
                     компьютер</button><br>
-                <button class="btn btn-white" data-toggle="modal" data-target="#AddUser">Добавить пользователя</button>
             </div>
 
         </div>
@@ -114,38 +113,7 @@
                 </form>
             </div>
         </div>
-        <div class="modal fade" id="AddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form action="" method="post">
-                    <div class="modal-content">
-                        <div class="modal-header text-center">
-                            <h4 class="modal-title w-100 font-weight-bold">Добавление пользователя</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body mx-3">
-                            <div class="md-form mb-5">
-                                <i class="fas fa-envelope prefix grey-text"></i>
-                                <input type="text" id="defaultForm-email" class="form-control validate" name="login">
-                                <label data-error="wrong" data-success="right" for="defaultForm-email">Логин</label>
-                            </div>
 
-                            <div class="md-form mb-4">
-                                <i class="fas fa-lock prefix grey-text"></i>
-                                <input type="text" id="defaultForm-pass" class="form-control validate" name="user_name">
-                                <label data-error="wrong" data-success="right" for="defaultForm-pass">Имя
-                                    пользователя</label>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button class="btn btn-white" type="submit" name="addUser">Добавить</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
         <div class="container-fluid mt-5">
             <div class="row wow fadeIn">
                 <div class="col-sm-12">
@@ -184,9 +152,9 @@
                                 <li class="nav-item ml-5">
                                     <a class="nav-link  black-text" data-toggle="tab" href="#tab3" role="tab" aria-selected="false">Сайты</a>
                                 </li>
-                                <li class="nav-item ml-5">
+                                <!-- <li class="nav-item ml-5">
                                     <a class="nav-link  black-text" data-toggle="tab" href="#tab4" role="tab" aria-selected="false">Компьютеры</a>
-                                </li>
+                                </li> -->
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
@@ -236,25 +204,23 @@
                                                 </th>
                                                 <th class="th-sm">Сайт
                                                 </th>
-                                                <th class="th-sm">Процесс
-                                                </th>
-                                                <th class="th-sm">Активное окно
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($url as $u) : ?>
                                                 <tr>
                                                     <td><?php echo $u['date_time']; ?></td>
-                                                    <td><?php echo $u['url']; ?></td>
-                                                    <td><?php echo $proc['name_process']; ?></td>
-                                                    <td><?php echo $proc['window_title']; ?></td>
+                                                    <?php if (strlen($u['url']) > 100) : ?>
+                                                        <td><?php echo substr($u['url'], 0, 100); ?></td>
+                                                    <?php else : ?>
+                                                        <td><?php echo $u['url']; ?></td>
+                                                    <?php endif; ?>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
+                                <!-- <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
                                     <table id="dtBasicExample2" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
@@ -274,7 +240,7 @@
                                         </tbody>
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> -->
                             </div>
 
                         </div>
@@ -309,6 +275,7 @@
             }
         });
     </script>
+    <script type="text/javascript" src="/template/js/online.js"></script>
 </body>
 
 </html>
